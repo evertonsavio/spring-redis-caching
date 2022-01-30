@@ -20,4 +20,9 @@ public class FibController {
         return Mono.fromSupplier(() -> this.fibService.getFib(index, name));
     }
 
+    @GetMapping("clear/{index}")
+    public Mono<Void> clearCache(@PathVariable int index){
+        return Mono.fromRunnable(() -> this.fibService.clearCache(index));
+    }
+
 }

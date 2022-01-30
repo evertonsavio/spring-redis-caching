@@ -1,10 +1,12 @@
 package dev.evertonsavio.redisspring.fib.service;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 @Service
 public class FibService {
 
+    @Cacheable("math:fib")
     public int getFib(int index){
         System.out.println("Calculating fib for " + index);
         return this.fib(index);

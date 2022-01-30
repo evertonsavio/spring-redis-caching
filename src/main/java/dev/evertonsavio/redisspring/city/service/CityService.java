@@ -6,8 +6,12 @@ import org.redisson.api.RMapReactive;
 import org.redisson.api.RedissonReactiveClient;
 import org.redisson.codec.TypedJsonJacksonCodec;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
+
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 public class CityService {
@@ -27,7 +31,11 @@ public class CityService {
                         .flatMap(city -> this.cityMap.fastPut(zipCode, city).thenReturn(city)));
     }
 
-    //@Scheduled(fixedRate = 10_000)
+    public void clearCity(final String zipCode){
+        this.cityMap.remove(zipCode).then().subscribe();
+    }
+
+//    @Scheduled(fixedRate = 10_000)
 //    public void updateCity(){
 //        this.cityClient.getAll()
 //                .collectList()

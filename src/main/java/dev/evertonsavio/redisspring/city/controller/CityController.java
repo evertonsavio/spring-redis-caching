@@ -3,10 +3,7 @@ package dev.evertonsavio.redisspring.city.controller;
 import dev.evertonsavio.redisspring.city.dto.City;
 import dev.evertonsavio.redisspring.city.service.CityService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
 @RestController
@@ -19,6 +16,11 @@ public class CityController {
     @GetMapping("{zipCode}")
     public Mono<City> getCity(@PathVariable String zipCode){
         return this.cityService.getCity(zipCode);
+    }
+
+    @GetMapping("clear/{zipcode}")
+    public void putCity(@PathVariable String zipcode){
+        this.cityService.clearCity(zipcode);
     }
 
 }
